@@ -1,0 +1,24 @@
+<div class="container" *ngIf="post; else loading">
+    <h1>View Post</h1>
+    <a routerLink="/post/index" class="btn btn-primary">Back</a>
+  
+    <div>
+      <strong>ID:</strong>
+      <p>{{ post!._id }}</p>
+    </div>
+  
+    <div>
+      <strong>Title:</strong>
+      <p>{{ post!.title }}</p>
+    </div>
+  
+    <div>
+      <strong>Body:</strong>
+      <p>{{ post!.body }}</p>
+    </div>
+  </div>
+  
+  <ng-template #loading>
+    <p>Loading...</p>
+  </ng-template>
+  
