@@ -1,8 +1,10 @@
+// src/app/post/index/index.component.ts
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { PostService } from '../post.service';
 import { Post } from '../post';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-index',
@@ -14,7 +16,11 @@ import { Post } from '../post';
 export class IndexComponent {
   posts: Post[] = [];
 
-  constructor(public postService: PostService) {}
+  constructor(
+    public postService: PostService,
+    public authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.postService.getAll().subscribe((data: Post[]) => {
@@ -27,5 +33,10 @@ export class IndexComponent {
     this.postService.delete(id).subscribe(() => {
       this.posts = this.posts.filter(post => post._id !== id);
     });
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }
